@@ -1,0 +1,27 @@
+{
+  "$schema": "https://dsh.community/schemas/dsh-plugin-0.15.json",
+  "manifestVersion": "0.15",
+  "id": "com.dsh-tui.chime",
+  "name": "chime",
+  "version": "0.2.0",
+  "facets": {
+    "host": {
+      "entry": "lib/index.js",
+      "apiVersion": "v1alpha1"
+    }
+  },
+  "requires": {
+    "contracts": [
+      {
+        "apiVersion": "tui.dsh/v1alpha1",
+        "kind": "SettingsSection",
+        "optional": true,
+        "fallback": "sounds keep firing, but the dsh-chime settings section is hidden"
+      }
+    ]
+  },
+  "contributes": {
+    "commands": []
+  },
+  "license": "MIT"
+}
