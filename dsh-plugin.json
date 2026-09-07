@@ -11,17 +11,20 @@
     }
   },
   "requires": {
-    "contracts": [
-      {
-        "apiVersion": "tui.dsh/v1alpha1",
-        "kind": "SettingsSection",
-        "optional": true,
-        "fallback": "sounds keep firing, but the dsh-chime settings section is hidden"
-      }
-    ]
+    "contracts": []
   },
+  "permissions": [],
+  "subscriptions": [],
   "contributes": {
     "commands": []
+  },
+  "source": {
+    "repository": "https://github.com/VviLliAm-qwq/dsh-chime"
+  },
+  "compat": {
+    "hosts": [
+      "dsh-tui"
+    ]
   },
   "license": "MIT"
 }
