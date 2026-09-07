@@ -1,4 +1,4 @@
-# dsh-chime bundle patch: mounts the notification-sound plugin.
+# dsh-chime-sound bundle patch: mounts the notification-sound plugin.
 - insert:
     - id: chime
-      name: 'dsh-chime'
+      name: 'dsh-chime-sound'

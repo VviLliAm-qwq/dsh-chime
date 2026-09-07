@@ -1,6 +1,6 @@
-# dsh-chime
+# dsh-chime-sound
 
-dsh-tui 提示音效插件（2026-09-07 由 dsh-notice-sound 改名）/ Notification sounds for dsh-tui.
+dsh-tui 提示音效插件（原名 dsh-notice-sound，2026-09-07 更名）/ Notification sounds for dsh-tui.
 
 - 触发:女仆调用询问模块 `ask_user_question`(`session/event` `tool/call`,提醒主人回来回答问题)与回复完成(`session/event` `turn/end`,agent-loop 每回合仅发一次;`assistant/message` 会随每个工具步骤多次触发,不采用),区分终端聚焦/未聚焦
 - 4 组音效(清脆电子 / 木质敲击 / 八比特 / 温馨钢琴)× 4 情景,设置页「提示音效」类中可选择或关闭
@@ -17,15 +17,15 @@ dsh-tui 提示音效插件（2026-09-07 由 dsh-notice-sound 改名）/ Notifica
 **方式一（dsh CLI，推荐）：**
 
 ```sh
-dsh plugin --profile <profile> add dsh-chime
+dsh plugin --profile <profile> add dsh-chime-sound
 ```
 
 （或从 dsh 插件市场 / GitHub 安装：`dsh plugin add github:VviLliAm-qwq/dsh-chime`。）
 
 **方式二（手动，与生态常见流程一致）：**
 
-1. 把插件包复制到 `~/.dsh/profiles/dsh-tui/node_modules/dsh-chime/`
-2. 在 `~/.dsh/profiles/dsh-tui/package.json` 的 `dsh.profile.bundles` 追加 `"dsh-chime"`（声明了 `dsh.bundle.patch`，启动时自动挂载）
+1. 把插件包复制到 `~/.dsh/profiles/dsh-tui/node_modules/dsh-chime-sound/`
+2. 在 `~/.dsh/profiles/dsh-tui/package.json` 的 `dsh.profile.bundles` 追加 `"dsh-chime-sound"`（声明了 `dsh.bundle.patch`，启动时自动挂载）
 3. 重启 dsh-tui（`/restart`）生效
 
 **兼容性**：dsh-tui 0.10.x（`ctx.tuiSettingsSections` / `session/event` 软探测接缝）；dsh 0.1.2-rc.1+；Node `^22.19 || >=24`；纯 ESM。配置键均有默认值，缺配置时行为退化为"什么都不发生"。
