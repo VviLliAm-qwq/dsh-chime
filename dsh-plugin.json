@@ -3,7 +3,7 @@
   "manifestVersion": "0.15",
   "id": "com.dsh-tui.chime",
   "name": "chime",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "facets": {
     "host": {
       "entry": "lib/index.js",
