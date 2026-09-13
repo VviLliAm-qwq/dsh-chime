@@ -1,0 +1,5 @@
+# Normalize line endings: the package ships JavaScript, JSON and YAML that
+# other tools parse, so the repository keeps LF everywhere. The sound samples
+# are binary and must never be normalized.
+* text=auto eol=lf
+*.wav binary
