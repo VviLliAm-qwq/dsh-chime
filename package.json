@@ -1,7 +1,7 @@
 {
   "name": "dsh-chime-sound",
-  "version": "0.2.0",
-  "description": "Notification sounds for dsh-tui: distinct tones for conversation done / user question, focused vs unfocused terminal, 4 selectable sound groups, master volume 0-150% in 5% steps, settings section, zh/en",
+  "version": "0.3.1",
+  "description": "Notification sounds for dsh-tui: distinct tones for conversation done / user question, focused vs unfocused terminal, 9 selectable sound groups, master volume 0-150% in 5% steps, settings section, zh/en",
   "license": "MIT",
   "type": "module",
   "main": "lib/index.js",
@@ -29,6 +29,8 @@
     "dsh-plugin.json",
     "cordis.patch.yml",
     "README.md",
+    "README.zh.md",
+    "CHANGELOG.md",
     "LICENSE"
   ],
   "dsh": {

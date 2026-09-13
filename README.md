@@ -1,57 +1,63 @@
 # dsh-chime-sound
 
-dsh-tui 提示音效插件（原名 dsh-notice-sound，2026-09-07 更名）/ Notification sounds for dsh-tui.
+**English** · [中文](README.zh.md)
 
-- 触发:女仆调用询问模块 `ask_user_question`(`session/event` `tool/call`,提醒主人回来回答问题)与回复完成(`session/event` `turn/end`,agent-loop 每回合仅发一次;`assistant/message` 会随每个工具步骤多次触发,不采用),区分终端聚焦/未聚焦
-- 4 组音效(清脆电子 / 木质敲击 / 八比特 / 温馨钢琴)× 4 情景,设置页「提示音效」类中可选择或关闭
-- **0.2.0 新增:主音量设置**(设置页「音量 / Volume」项):0%~150%,每档 5%(31 档),默认 100% = 原音量。←/→ 单按 ±5%,**长按连续调节**(dsh-tui 输入层把长按重复展开为逐档事件,无需额外配置);修改后立即试听。>100% 时样本做 16-bit 饱和削波(峰值约 105%,仅极短时段削波;如需无失真可后续改软限幅)。音量仅在插件内部对 WAV 样本增益,不影响系统音量
-- 音效由本仓库 `scripts/gen-sounds.mjs` 生成(WAV,16-bit/48kHz)
-- 设置与文案支持中英文
+Notification sounds for dsh-tui (originally named dsh-notice-sound, renamed on 2026-09-07).
 
-## ⚠️ 平台限制（Windows only）
+- **Triggers:** the agent calling `ask_user_question` (`session/event` `tool/call` — a nudge to come back and answer) and a reply finishing (`session/event` `turn/end`; agent-loop emits this once per turn, while `assistant/message` fires on every tool step and is deliberately not used). Both distinguish a focused from an unfocused terminal.
+- **9 sound groups × 4 situations**, selectable (or off) in the settings page's “Notice Sounds” section: g1 Crisp / g2 Wood / g3 Chiptune / g4 Warm (synthesised in code), g5 Bell / g6 Bubble / g7 Arcade / g8 Marimba / g9 Soft Synth (CC0 samples).
+- **New in 0.2.0 — master volume** (the “Volume” field): 0–150% in 5% steps (31 steps), default 100% = the original level. `←/→` steps 5%; **holding the key repeats**, because dsh-tui's input layer expands the auto-repeat into per-step events. The new level is auditioned immediately. Above 100% the samples are 16-bit saturated (peak ≈ 105%, clipping only for very short stretches). The gain is applied to the WAV samples inside the plugin and never touches system volume.
+- g1–g4 are synthesised by this repository's `scripts/gen-sounds.mjs` (WAV, 16-bit / 48 kHz); g5–g9 are [Freesound](https://freesound.org) **CC0 1.0** material, decoded and then trimmed, faded and loudness-normalised to the same format. Sources and conversion parameters are recorded in `assets/sounds/CREDITS.md` (CC0 needs no attribution and may be redistributed with this plugin).
+- Settings and copy are bilingual (Chinese/English); the settings card is localised by the host according to the language dsh-tui's `/lang` selected.
 
-本插件通过 **Win32 API**（koffi → `winmm.dll` `PlaySoundW` / `user32.dll` 焦点检测）播放声音，**仅支持 Windows（Windows Terminal / conhost）**。其他平台（Linux/macOS）上插件静默降级为 no-op（不播放、不拖垮启动），并在日志中给出 `Win32-only` 警告。请勿在非 Windows 环境期待提示音。
+## ⚠️ Platform support (Windows only)
 
-## 安装
+Sound is played through **Win32 APIs** (koffi → `winmm.dll` `PlaySoundW`, with focus detection via `user32.dll`), so this plugin is **Windows-only** (Windows Terminal and classic conhost). On Linux and macOS it degrades silently to a no-op — no sound, no boot failure — and logs a `Win32-only` warning. Do not expect notification sounds elsewhere.
 
-**方式一（dsh CLI，推荐）：**
+## Install
+
+**Option 1 — dsh CLI (recommended):**
 
 ```sh
 dsh plugin --profile <profile> add dsh-chime-sound
 ```
 
-（或从 dsh 插件市场 / GitHub 安装：`dsh plugin add github:VviLliAm-qwq/dsh-chime`。）
+(Or from the dsh plugin market / GitHub: `dsh plugin add github:VviLliAm-qwq/dsh-chime`.)
 
-**方式二（手动，与生态常见流程一致）：**
+**Option 2 — manual:**
 
-1. 把插件包复制到 `~/.dsh/profiles/dsh-tui/node_modules/dsh-chime-sound/`
-2. 在 `~/.dsh/profiles/dsh-tui/package.json` 的 `dsh.profile.bundles` 追加 `"dsh-chime-sound"`（声明了 `dsh.bundle.patch`，启动时自动挂载）
-3. 重启 dsh-tui（`/restart`）生效
+1. Copy the package to `~/.dsh/profiles/dsh-tui/node_modules/dsh-chime-sound/`
+2. Append `"dsh-chime-sound"` to `dsh.profile.bundles` in `~/.dsh/profiles/dsh-tui/package.json` (the package declares `dsh.bundle.patch`, so it mounts itself at boot)
+3. Restart dsh-tui (`/restart`)
 
-**兼容性**：dsh-tui 0.10.x（`ctx.tuiSettingsSections` / `session/event` 软探测接缝）；dsh 0.1.2-rc.1+；Node `^22.19 || >=24`；纯 ESM。配置键均有默认值，缺配置时行为退化为"什么都不发生"。
+**Compatibility:** dsh-tui 0.10.x (the `ctx.tuiSettingsSections` and `session/event` seams, both soft-probed); dsh 0.1.2-rc.1+; Node `^22.19 || >=24`; pure ESM. Every configuration key has a default, and a missing configuration degrades to “nothing happens”.
 
-## 配置
+## Configuration
 
-设置项在 dsh-tui 设置页「提示音效 / Notice Sounds」类（或 `~/.dsh/settings.yaml` 的 `chime:` 命名空间）：
+The settings live in dsh-tui's “Notice Sounds” section (or the `chime:` namespace of `~/.dsh/settings.yaml`):
 
 ```yaml
 chime:
-  doneFocus: g2   # 完成对话·聚焦时: g1-g4 / off
-  doneBlur: g2    # 完成对话·未聚焦时
-  askFocus: g2    # 提问·聚焦时
-  askBlur: g2     # 提问·未聚焦时
-  volume: "50"    # 0-150, 5% 步进, 默认 "100"
+  doneFocus: g2   # reply finished, terminal focused: g1-g9 / off
+  doneBlur: g2    # reply finished, terminal unfocused
+  askFocus: g2    # question asked, terminal focused
+  askBlur: g2     # question asked, terminal unfocused
+  volume: "50"    # 0-150, 5% steps, default "100"
 ```
 
-## 事件源说明(0.1.1 修复)
+## Why `session/event` and not the message observer
 
-此前用 dsh-tui 的 mediated `tuiMessageObserver.subscribe()` 订阅消息事件,但该 API 要求插件激活先通过 host admission 绑定已验证的 Component 身份;bundle-patch 挂载的插件不经过 admission,所有订阅被拒绝(`COMPONENT_NOT_ADMITTED`),导致提示音完全不触发。
+dsh-tui's mediated `tuiMessageObserver.subscribe()` is unusable here: the API requires the activation to hold a verified Component identity through host admission, and a plugin mounted by a bundle patch never goes through admission — its subscriptions are refused (`COMPONENT_NOT_ADMITTED`) and no sound ever plays.
 
-0.1.1 改用 `@deepseek-ai/dsh-session` 发布的 `session/event` cordis bus 事件(官方 `dsh-working-activity` 扩展同款通道),无需 Component identity:
+This plugin therefore listens on the `session/event` cordis bus published by `@deepseek-ai/dsh-session` (the same channel the official `dsh-working-activity` extension uses), which needs no Component identity:
 
-- `tool/call` 且 `name === 'ask_user_question'` → 提问音(askFocus/askBlur)
-- `turn/end` → 完成音(doneFocus/doneBlur),子代理会话不触发
-- 焦点判定:GetForegroundWindow 句柄 == GetConsoleWindow 或窗口类名匹配(`CASCADIA_HOSTING_WINDOW_CLASS`=Windows Terminal / `ConsoleWindowClass`=传统 conhost)。ConPTY 下 GetConsoleWindow 返回隐藏的 `PseudoConsoleWindow`(永非前台),旧代码仅按句柄/类名读法均有缺陷,现双判据+修正的类名读取
-- `dsh-plugin.json` 已移除不再使用的 `messages.observe` 声明
+- `tool/call` with `name === 'ask_user_question'` → the question sound (askFocus / askBlur)
+- `turn/end` → the completion sound (doneFocus / doneBlur); subagent sessions are ignored
+- **Focus detection:** the `GetForegroundWindow` handle equals `GetConsoleWindow`, or the window class matches (`CASCADIA_HOSTING_WINDOW_CLASS` = Windows Terminal, `ConsoleWindowClass` = classic conhost). Under ConPTY `GetConsoleWindow` returns a hidden `PseudoConsoleWindow` that is never foreground, so the earlier handle-only and class-only readings were both flawed; the check is now a pair of criteria with a corrected class read.
+- `dsh-plugin.json` no longer declares the unused `messages.observe` capability.
 
-安装后需重启 dsh-tui 生效。
+Restart dsh-tui after installing.
+
+## License
+
+MIT — see [LICENSE](LICENSE). Sound assets are licensed and attributed in `assets/sounds/CREDITS.md`.
