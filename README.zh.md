@@ -58,6 +58,10 @@ dsh-tui 的 mediated `tuiMessageObserver.subscribe()` 对本插件不可用：�
 
 安装后需重启 dsh-tui 生效。
 
+## 发布
+
+- **仓库**：<https://github.com/VviLliAm-qwq/dsh-chime>（公开）
+
 ## 许可
 
 MIT — 见 [LICENSE](LICENSE)。音效素材的授权与出处见 `assets/sounds/CREDITS.md`。

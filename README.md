@@ -58,6 +58,10 @@ This plugin therefore listens on the `session/event` cordis bus published by `@d
 
 Restart dsh-tui after installing.
 
+## Publishing
+
+- **Repository**: <https://github.com/VviLliAm-qwq/dsh-chime> (public)
+
 ## License
 
 MIT — see [LICENSE](LICENSE). Sound assets are licensed and attributed in `assets/sounds/CREDITS.md`.
