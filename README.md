@@ -4,6 +4,8 @@
 
 **English** · [中文](README.zh.md)
 
+Built for [dsh-TUI](https://github.com/ccch1mneyyy/dsh-TUI).
+
 Notification sounds for dsh-tui (originally named dsh-notice-sound, renamed on 2026-09-07).
 
 - **Triggers:** the agent calling `ask_user_question` (`session/event` `tool/call` — a nudge to come back and answer) and a reply finishing (`session/event` `turn/end`; agent-loop emits this once per turn, while `assistant/message` fires on every tool step and is deliberately not used). Both distinguish a focused from an unfocused terminal.

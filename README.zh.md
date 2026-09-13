@@ -4,6 +4,8 @@
 
 **中文** · [English](README.md)
 
+为 [dsh-TUI](https://github.com/ccch1mneyyy/dsh-TUI) 构建。
+
 dsh-tui 提示音效插件（原名 dsh-notice-sound，2026-09-07 更名）。
 
 - 触发：代理调用询问模块 `ask_user_question`（`session/event` `tool/call`，提醒用户回来回答问题）与回复完成（`session/event` `turn/end`，agent-loop 每回合仅发一次；`assistant/message` 会随每个工具步骤多次触发，不采用），并区分终端聚焦 / 未聚焦。
