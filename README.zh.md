@@ -1,5 +1,7 @@
 # dsh-chime-sound
 
+[![ci](https://github.com/VviLliAm-qwq/dsh-chime/actions/workflows/ci.yml/badge.svg)](https://github.com/VviLliAm-qwq/dsh-chime/actions/workflows/ci.yml)
+
 **中文** · [English](README.md)
 
 dsh-tui 提示音效插件（原名 dsh-notice-sound，2026-09-07 更名）。
@@ -61,6 +63,7 @@ dsh-tui 的 mediated `tuiMessageObserver.subscribe()` 对本插件不可用：�
 ## 发布
 
 - **仓库**：<https://github.com/VviLliAm-qwq/dsh-chime>（公开）
+- **发布方式**：`v*` tag 驱动 `.github/workflows/release.yml`，经 npm **可信发布（OIDC）**上传——仓库内不存放任何令牌。
 
 ## 许可
 

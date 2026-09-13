@@ -1,5 +1,7 @@
 # dsh-chime-sound
 
+[![ci](https://github.com/VviLliAm-qwq/dsh-chime/actions/workflows/ci.yml/badge.svg)](https://github.com/VviLliAm-qwq/dsh-chime/actions/workflows/ci.yml)
+
 **English** · [中文](README.zh.md)
 
 Notification sounds for dsh-tui (originally named dsh-notice-sound, renamed on 2026-09-07).
@@ -61,6 +63,7 @@ Restart dsh-tui after installing.
 ## Publishing
 
 - **Repository**: <https://github.com/VviLliAm-qwq/dsh-chime> (public)
+- **Release**: `v*` tags drive `.github/workflows/release.yml`, which publishes to npm through **trusted publishing (OIDC)** — no token is stored in the repository.
 
 ## License
 
